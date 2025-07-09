@@ -22,7 +22,7 @@ const CartItems = () => {
             {
                 return (
                 <div>
-                    <div className="cartitems-fromat cartitems-format-main">
+                    <div className="cartitems-format cartitems-format-main">
                     <img src={e.image} alt="" className='cartitems-product-icons' />
                     <p>{e.name}</p>
                     <p>&#8377;{e.new_price}</p>

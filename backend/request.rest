@@ -1,0 +1,4 @@
+### Test file upload
+POST http://localhost:4000/upload
+
+product=@"C:\\Users\\asus\\Desktop\\mern stack\\E-commerce\\backend\\test.png"

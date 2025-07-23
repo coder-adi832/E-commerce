@@ -1,10 +1,13 @@
 import React from 'react'
+import Navbar from './Components/Navbar'
+import Admin from './Pages/Admin/Admin'
 
 const App = () => {
   return (
-    <div>
-      
-    </div>
+      <div>
+          <Navbar/>  
+          <Admin/>
+      </div>
   )
 }
 

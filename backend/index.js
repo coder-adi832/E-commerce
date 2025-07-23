@@ -1,27 +1,24 @@
 const port = 4000;
+
 const express = require("express");
 const app = express();
+
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
-const { error } = require("console");
-const { type } = require("os");
 
+require('dotenv').config(); 
 
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+app.use(cors());
 
+mongoose
+  .connect(process.env.MONGODB)
+  .then(() => console.log(" MongoDB connected"))
+  .catch((err) => console.error(" MongoDB connection error:", err));
 
-// database connection with mongoDB
-mongoose.connect("mongodb+srv://mogouser2020:C06d0bz4YnrKKuRr@cluster0.nzoxhpb.mongodb.net/e-commerce")
-
-// API creation
-
-app.get("/", (req,res)=>{
-    res.send("Express app is running")
-})
 
 //image storage engine
 
@@ -55,63 +52,71 @@ app.post("/upload",upload.single('product'), (req,res)=>{
 
 //creating schema for creating products
 
-const Product = mongoose.model("Product",{
-    id:{
-        type: Number,
-        required: true,
-    },
-    name:{
-        type:String,
-        required: true,
-    },
-    category:{
-        type: String,
-        required: true,    
-    },
-    new_price:{
-        type: Number,
-        required: true,   
-    },
-    old_price:{
-        type: Number,
-        required: true,   
-    },
-    date:{
-        type: Date,
-        default: Date.now(),
-    },
-    avilable:{
-        type: Boolean,
-        default: true,
-    },
+const Product = mongoose.model("Product", {
+  id: {
+    type: Number,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  category: {
+    type: String,
+    required: true,
+  },
+  new_price: {
+    type: Number,
+    required: true,
+  },
+  old_price: {
+    type: Number,
+    required: true,
+  },
+  image: {   
+    type: String,
+    required: true,
+  },
+  date: {
+    type: Date,
+    default: Date.now(),
+  },
+  available: {
+    type: Boolean,
+    default: true,
+  },
 })
 
-app.post('/addproduct',async(req,res)=>{
-    let products = await Product.find({})
-    let id
-    if(products.length > 0){
-        let last_product_array = products.slice(-1)
-        let last_product = last_product_array[0]
-        id = last_product.id + 1
-    }
-    else{
-        id = 1
-    }
-    const product = new Product({
-        id:id,
-        name:req.body.name,
-        // image:req.body.image,
-        category: req.body.category,
-        new_price:req.body.new_price,
-        old_price:req.body.old_price,
-    });
-    console.log(product)
-    await product.save();
-    console.log("Saved")
-    res.json({
-        success: true,
-        name:req.body.name,
-    })
+
+app.post('/addproduct', async (req, res) => {
+  let products = await Product.find({})
+  let id
+  if (products.length > 0) {
+    let last_product_array = products.slice(-1)
+    let last_product = last_product_array[0]
+    id = last_product.id + 1
+  } else {
+    id = 1
+  }
+
+  const product = new Product({
+    id: id,
+    name: req.body.name,
+    image: req.body.image, 
+    category: req.body.category,
+    new_price: req.body.new_price,
+    old_price: req.body.old_price,
+  })
+
+  console.log(product)
+
+  await product.save()
+  console.log("Saved")
+
+  res.json({
+    success: true,
+    product: product,
+  })
 })
 
 // Creating API for delelting products

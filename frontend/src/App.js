@@ -11,6 +11,7 @@ import Footer from './Components/Footer/Footer';
 import men_banner from './Components/Assets/Frontend_Assets/banner_mens.png'
 import women_banner from './Components/Assets/Frontend_Assets/banner_women.png'
 import kids_banner from './Components/Assets/Frontend_Assets/banner_kids.png'
+import Login from './Pages/Login';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
               <Route path=':productID' element = {<Product/>}/>
             </Route>
             <Route path='/login' element = {<LoginSignUp/>}/>
+            <Route path='/userlogin' element = {<Login/>}/>
             <Route path='/cart' element = {<Cart/>}/>
           </Routes>
         <Footer/>

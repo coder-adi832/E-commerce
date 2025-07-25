@@ -19,7 +19,7 @@ const ShopContextProvider = (props) => {
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/allproducts");
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/allproducts`);
         const fetchedProducts = res.data;
 
         const combinedProducts = [...baseproducts, ...fetchedProducts];
@@ -42,7 +42,6 @@ const ShopContextProvider = (props) => {
       prevProducts.map((product) => {
         if (product.id === itemId) {
           if (product.quantity > 0) {
-            // ✅ Reduce product stock by 1
             return { ...product, quantity: product.quantity - 1 };
           } else {
             alert("This product is out of stock!");

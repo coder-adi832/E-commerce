@@ -22,7 +22,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post('http://localhost:4000/userlogin', {
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/userlogin`, {
         email: inputs.email,
         password: inputs.password
       });

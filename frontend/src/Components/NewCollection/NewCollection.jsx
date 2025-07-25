@@ -9,7 +9,7 @@ const NewCollection = () => {
   useEffect(() => {
     const fetchNewCollections = async () => {
       try {
-        const res = await axios.get('http://localhost:4000/newcollections');
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/newcollections`);
         setNewCollection(res.data);
         console.log('Fetched new collections:', res.data);
       } catch (error) {

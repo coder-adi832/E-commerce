@@ -18,7 +18,7 @@ const RemoveProduct = () => {
 
     try {
       setLoading(true)
-      const res = await axios.get('http://localhost:4000/allproducts')
+      const res = await axios.get('https://e-commerce-n62r.onrender.com/allproducts')
       const found = res.data.find((p) => p.id === Number(productId))
 
       if (found) {
@@ -44,7 +44,7 @@ const RemoveProduct = () => {
     if (!confirmDelete) return
 
     try {
-      await axios.post('http://localhost:4000/removeproduct', {
+      await axios.post('https://e-commerce-n62r.onrender.com/removeproduct', {
         id: product.id,
       })
 

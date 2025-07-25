@@ -49,14 +49,14 @@ const AddProduct = () => {
       formData.append('product', imageFile)
 
       const uploadRes = await axios.post(
-        'http://localhost:4000/upload',
+        'https://e-commerce-n62r.onrender.com/upload',
         formData
       )
 
       const imageUrl = uploadRes.data.image_url
 
       // 2️⃣ Add product with quantity
-      const productRes = await axios.post('http://localhost:4000/addproduct', {
+      const productRes = await axios.post('https://e-commerce-n62r.onrender.com/addproduct', {
         name: productData.name,
         category: productData.category,
         new_price: Number(productData.new_price),

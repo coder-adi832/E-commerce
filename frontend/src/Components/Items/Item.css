@@ -1,86 +1,107 @@
-.item{
-    width: 280px;
-}
-.item img{
-    width: 280px;
-}
-.item p{
-    margin: 6px 0;
-
+.item {
+  width: 280px;
+  margin: 10px;
+  transition: transform 0.3s ease;
 }
 
-.item-prices{
-    display: flex;
-    gap: 20px;
+.item img {
+  width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
 }
-.item-price-new{
-    color: #374151;
-    font-size: 18px;
-    font-weight: 600;
-}
-.item-price-old{
-    color: #8c8c8c;
-    font-size: 18px;
-    font-weight: 500;
-    text-decoration: line-through;
-}
-.item:hover{
-    transform: scale(1.05);
-    transition: 0.6s;
-}
-@media(max-width: 1280px){
-    .item{
-        width: 220px;
-        font-size: 14px;
-    }
-    .item img{
-        width: 220px;
-    }
-    .item-price-old{
-        font-size: 14px;
-    }
-    .item-price-new{
-        font-size: 14px;
-    }
-    
-}
-@media(max-width:1024px){
-    .item{
-        width: 170px;
-        font-size: 13px;
-    }
-    .item img{
-        width: 170px
-    }
-    .item-price-old{
-        font-size: 13px;
-    }
-    .item-price-new{
-        font-size: 13px;
-    }
-}
-@media(max-width:800px){
-    .item{
-        width: 120px;
-        font-size: 12px;
-    }
-    .item img{
-        width: 120px
-    }
-    .item-price-old{
-        font-size: 12px;
-    }
-    .item-price-new{
-        font-size: 12px;
-    }
-}
-@media(max-width: 500px){
-    .item{
-        width: 160px;
 
-    }
-    .item img{
-        width: 160px;
-    }
-    
+.item p {
+  margin: 6px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.item-prices {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.item-price-new {
+  color: #374151;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.item-price-old {
+  color: #8c8c8c;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: line-through;
+}
+
+.item:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 1280px) {
+  .item {
+    width: 220px;
+  }
+
+  .item img {
+    width: 100%;
+  }
+
+  .item p {
+    font-size: 14px;
+  }
+
+  .item-price-new,
+  .item-price-old {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .item {
+    width: 170px;
+  }
+
+  .item img {
+    width: 100%;
+  }
+
+  .item p {
+    font-size: 13px;
+  }
+
+  .item-price-new,
+  .item-price-old {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 800px) {
+  .item {
+    width: 120px;
+  }
+
+  .item img {
+    width: 100%;
+  }
+
+  .item p {
+    font-size: 12px;
+  }
+
+  .item-price-new,
+  .item-price-old {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 500px) {
+  .item {
+    width: 160px;
+  }
+
+  .item img {
+    width: 100%;
+  }
 }

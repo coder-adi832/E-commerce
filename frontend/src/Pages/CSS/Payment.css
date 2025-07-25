@@ -1,0 +1,60 @@
+.payment-container {
+  max-width: 600px;
+  margin: 80px auto;
+  padding: 40px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.payment-bill {
+  margin-bottom: 40px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+.bill-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.bill-item.total {
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-element {
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.payment-btn {
+  background: #ff5a5a;
+  color: #fff;
+  border: none;
+  padding: 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.payment-btn:disabled {
+  background: #ddd;
+  cursor: not-allowed;
+}

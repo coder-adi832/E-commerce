@@ -8,6 +8,7 @@ const AddProduct = () => {
     category: 'women',
     new_price: '',
     old_price: '',
+    quantity: '', 
   })
 
   const [imagePreview, setImagePreview] = useState(null)
@@ -35,6 +36,7 @@ const AddProduct = () => {
       !productData.new_price ||
       !productData.old_price ||
       !productData.category ||
+      !productData.quantity ||
       !imageFile
     ) {
       alert('Please fill in all fields and upload an image.')
@@ -53,14 +55,15 @@ const AddProduct = () => {
 
       const imageUrl = uploadRes.data.image_url
 
+      // 2️⃣ Add product with quantity
       const productRes = await axios.post('http://localhost:4000/addproduct', {
         name: productData.name,
         category: productData.category,
         new_price: Number(productData.new_price),
         old_price: Number(productData.old_price),
-        image: imageUrl,  // ✅ must be included!
-    })
-
+        quantity: Number(productData.quantity), 
+        image: imageUrl,
+      })
 
       console.log('Product added:', productRes.data)
       alert('Product added successfully!')
@@ -71,6 +74,7 @@ const AddProduct = () => {
         category: 'women',
         new_price: '',
         old_price: '',
+        quantity: '', 
       })
       setImagePreview(null)
       setImageFile(null)
@@ -123,6 +127,19 @@ const AddProduct = () => {
             className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
+      </div>
+
+      <div className="mb-6">
+        <p className="mb-2 text-gray-700 font-medium">Quantity</p>
+        <input
+          type="number"
+          name="quantity"
+          placeholder="Enter quantity"
+          value={productData.quantity}
+          onChange={handleInputChange}
+          required
+          className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
       </div>
 
       <div className="mb-6">

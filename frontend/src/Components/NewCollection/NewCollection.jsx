@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './NewCollection.css';
 import Item from '../Items/Item';
+import './NewCollection.css'
 import axios from 'axios';
 
 const NewCollection = () => {

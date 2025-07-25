@@ -22,7 +22,6 @@ const ShopContextProvider = (props) => {
         const res = await axios.get("http://localhost:4000/allproducts");
         const fetchedProducts = res.data;
 
-        // ✅ Combine local + fetched
         const combinedProducts = [...baseproducts, ...fetchedProducts];
         setAllProduct(combinedProducts);
 
@@ -31,8 +30,6 @@ const ShopContextProvider = (props) => {
         console.log("Combined products:", combinedProducts);
       } catch (err) {
         console.error("Error fetching products:", err);
-
-        // Fallback to base only
         setAllProduct(baseproducts);
       }
     };
@@ -41,12 +38,39 @@ const ShopContextProvider = (props) => {
   }, []);
 
   const addToCart = (itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
-    console.log(cartItems);
+    setAllProduct((prevProducts) =>
+      prevProducts.map((product) => {
+        if (product.id === itemId) {
+          if (product.quantity > 0) {
+            // ✅ Reduce product stock by 1
+            return { ...product, quantity: product.quantity - 1 };
+          } else {
+            alert("This product is out of stock!");
+          }
+        }
+        return product;
+      })
+    );
+
+    const product = all_product.find((p) => p.id === itemId);
+    if (product && product.quantity > 0) {
+      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+      console.log(cartItems);
+    }
   };
 
   const removeFromCart = (itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+    if (cartItems[itemId] > 0) {
+      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+      setAllProduct((prevProducts) =>
+        prevProducts.map((product) => {
+          if (product.id === itemId) {
+            return { ...product, quantity: product.quantity + 1 };
+          }
+          return product;
+        })
+      );
+    }
   };
 
   const getTotalCartAmount = () => {

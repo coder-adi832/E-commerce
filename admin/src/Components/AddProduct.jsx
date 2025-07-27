@@ -44,19 +44,17 @@ const AddProduct = () => {
     }
 
     try {
-      // 1️⃣ Upload image to backend
       const formData = new FormData()
       formData.append('product', imageFile)
 
       const uploadRes = await axios.post(
-        'https://e-commerce-n62r.onrender.com/upload',
+        `${process.meta.env.VITE_BACKEND}/upload`,
         formData
       )
 
       const imageUrl = uploadRes.data.image_url
 
-      // 2️⃣ Add product with quantity
-      const productRes = await axios.post('https://e-commerce-n62r.onrender.com/addproduct', {
+      const productRes = await axios.post(`${process.meta.env.VITE_BACKEND}/addproduct`, {
         name: productData.name,
         category: productData.category,
         new_price: Number(productData.new_price),

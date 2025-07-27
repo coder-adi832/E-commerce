@@ -48,13 +48,13 @@ const AddProduct = () => {
       formData.append('product', imageFile)
 
       const uploadRes = await axios.post(
-        `${process.meta.env.VITE_BACKEND}/upload`,
+        `${import.meta.env.VITE_BACKEND}/upload`,
         formData
       )
 
       const imageUrl = uploadRes.data.image_url
 
-      const productRes = await axios.post(`${process.meta.env.VITE_BACKEND}/addproduct`, {
+      const productRes = await axios.post(`${import.meta.env.VITE_BACKEND}/addproduct`, {
         name: productData.name,
         category: productData.category,
         new_price: Number(productData.new_price),

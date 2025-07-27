@@ -1,12 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ShopContext } from '../Context/ShopContext';
 import axios from 'axios';
 import './CSS/CheckOut.css'; 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const CheckOut = () => {
   const { all_product, cartItems, getTotalCartAmount } = useContext(ShopContext);
-  
+  const navigate = useNavigate()
+  useEffect(()=>{
+    const token = localStorage.getItem('token')
+    if(!token){
+      alert("Please login first to continue to order");
+      navigate('/login')
+    }
+  },[])
   
 
   return (

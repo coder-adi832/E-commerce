@@ -8,7 +8,6 @@ const app = express();
 
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const multer = require('multer');
 const path = require('path');
 const cors = require('cors');
 const Stripe = require('stripe');
@@ -24,28 +23,47 @@ mongoose
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
-// Image storage config
-const storage = multer.diskStorage({
-  destination: './upload/images',
-  filename: (req, file, cb) => {
-    return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
-  },
+const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
+const streamifier = require('streamifier');
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
 });
-const upload = multer({ storage: storage });
 
-app.use('/images', express.static('upload/images'));
+// Memory storage
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
-// Upload endpoint
-app.post('/upload', upload.single('product'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ success: 0, message: 'No file uploaded' });
+// Upload API
+app.post('/upload', upload.single('product'), async (req, res) => {
+  try {
+    const streamUpload = (req) => {
+      return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream((error, result) => {
+          if (result) {
+            resolve(result);
+          } else {
+            reject(error);
+          }
+        });
+
+        streamifier.createReadStream(req.file.buffer).pipe(stream);
+      });
+    };
+
+    const result = await streamUpload(req);
+
+    res.json({ success: 1, image_url: result.secure_url });
+  } catch (err) {
+    console.error('Upload failed:', err);
+    res.status(500).json({ success: 0, message: 'Upload failed' });
   }
-
-  res.json({
-    success: 1,
-    image_url: `http://localhost:${port}/images/${req.file.filename}`,
-  });
 });
+
+
 
 // Product Schema
 const Product = mongoose.model('Product', {
